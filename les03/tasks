@@ -1,3 +1,6 @@
 В первом задании выполнил команду yarn jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar pi 32 10000
 Скрин задачи с нодой и временем выполнения в task1.png. CPU 25 ядер оперативку 28 съел.
 Логи выполнения в файле task1.txt
+
+
+Касательно второго задания, не понял что делать. task2.png. запустил wordcount и все посчиталось
