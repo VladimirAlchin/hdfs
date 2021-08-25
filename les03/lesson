@@ -1,0 +1,12 @@
+https://docs.microsoft.com/ru-ru/azure/hdinsight/hadoop/apache-hadoop-run-samples-linux
+
+yarn jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar pi 32 1000
+
+
+#посмотрим на файл и вес
+hdfs dfs -head /datasets/mapred_data/local_test.txt
+
+yarn jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar wordcount /datasets/mapred_data/ /user/$USER/mapred_test
+
+
+./run.sh /datasets/mapred_data mr_python
