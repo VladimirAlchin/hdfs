@@ -81,22 +81,24 @@ select distinct `type` from airport_codes_part;
 /*
 теперь посмотри в hive_test_loc через hdfs dfs -ls/-du и скажи, что заметил и почему там всё так
 
-мы в папке создали структуру из партиций в нашем случае по полю тайп, и вывели в них по 1000 строк
+--мы в папке создали структуру из партиций в нашем случае по полю тайп, и вывели в них по 1000 строк
 */
 
 
 --что такое temporary table и когда лучше использовать?
+--это временные таблицы, которые удаляются после завершения сеанса. удобно использовать для построения связей и хранения промежуточных данных
+
 --что будет с содержимым таблицы, если колонки, по которым партиционируем, будут стоять не последними в селекте?
 create temporary table for_insert_airport_codes_part as
 select
      ident, `name`, elevation_ft, continent
     ,iso_region, municipality, gps_code, iata_code, local_code
     ,coordinates, iso_country, `type`
-from student41_35.airport_codes t1
+from student41_45.airport_codes t1
 left join (
     select distinct
         `type` as type_2
-    from student41_35.airport_codes_part
+    from student41_45.airport_codes_part
     ) t2 on t1.`type` = t2.type_2
 where
     t2.type_2 is null
@@ -104,8 +106,12 @@ where
 select count(distinct `type`) from for_insert_airport_codes_part;
 select distinct `type` from for_insert_airport_codes_part;
 ;
+
+
 --чем insert overwrite отличается от insert into?
-insert into student41_35.airport_codes_part partition(`type`)
+--insert overwrite перезаписывает таблицу
+--инсерт инто просто дописывает данные в существующую таблицу
+insert into student41_45.airport_codes_part partition(`type`)
 select
      ident, `name`, elevation_ft, continent
     ,iso_region, municipality, gps_code, iata_code, local_code
@@ -113,6 +119,7 @@ select
 from for_insert_airport_codes_part t1
 limit 1000
 ;
+
 select count(distinct `type`) from airport_codes_part;
 select distinct `type` from airport_codes_part;
 
@@ -121,6 +128,28 @@ STREAMING
 выполни в баше это и скажи, что мы тут делаем:
     seq 0 9 > col_1 && seq 10 19 > col_2
     paste -d'|' col_1 col_2 | hdfs dfs -appendToFile - test_tab/test_tab.csv
+ вывели счет 0 -9 и 10-19 в 1 и 2 колонк с разделителем |  и отправили пайплайн в Hdfs в файл
+[student41_45@bigdataanalytics2-head-shdpt-v31-1-0 ~]$ hdfs dfs -cat test_tab/test_tab.csv
+0|10
+1|11
+2|12
+3|13
+4|14
+5|15
+6|16
+7|17
+8|18
+9|19
+0|10
+1|11
+2|12
+3|13
+4|14
+5|15
+6|16
+7|17
+8|18
+9|19
 */
 ;
 drop table if exists my_test_tab;
