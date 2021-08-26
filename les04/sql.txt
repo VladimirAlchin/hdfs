@@ -154,22 +154,25 @@ STREAMING
 ;
 drop table if exists my_test_tab;
 ;
+
+загрузили данные из прошлого шага(0-9\10-19)
 create temporary external table my_test_tab (
     col_1 int,
     col_2 int
 )
 row format delimited fields terminated by '|'
 stored as TEXTFILE
-location "/user/student41_35/test_tab"
+location "/user/student41_45/test_tab"
 ;
 select * from my_test_tab;
 ;
 
 ;
 --что тут произошло и как это можно использовать ещё?
+операция сложения, мы сложили две колонки и вывели результирующую таблицу
 select
     transform(col_1, col_2) using "awk '{print $1+$2}'" as my_sum
 from my_test_tab
 ;
 
--- /home/student41_35/mapred/mapper.py
+-- /home/student41_45/mapred/mapper.py
