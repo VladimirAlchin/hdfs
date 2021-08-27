@@ -103,6 +103,11 @@ left join (
 where
     t2.type_2 is null
 ;
+
+
+
+
+
 select count(distinct `type`) from for_insert_airport_codes_part;
 select distinct `type` from for_insert_airport_codes_part;
 ;
