@@ -1,0 +1,33 @@
+create temporary table for_insert_airport_codes_part as
+select
+     ident, `name`, elevation_ft, continent
+    ,iso_region, municipality, gps_code, iata_code, local_code
+    ,coordinates, iso_country, `type`
+from student41_45.airport_codes t1
+left join (
+    select distinct
+        `type` as type_2
+    from student41_45.airport_codes_part
+    ) t2 on t1.`type` = t2.type_2
+where
+    t2.type_2 is null
+;
+
+--СТАЛО
+create temporary table for_insert_airport_codes_part as
+with t1 as (
+select
+     ident, `name`, elevation_ft, continent
+    ,iso_region, municipality, gps_code, iata_code, local_code
+    ,coordinates, iso_country, `type`
+from student41_45.airport_codes
+),
+ t2 as (
+ select distinct
+        `type` as type_2
+    from student41_45.airport_codes_part)
+select * from t1
+left join t2 on t1.`type` = t2.type_2
+where
+    t2.type_2 is null
+;
