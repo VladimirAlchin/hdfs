@@ -37,10 +37,10 @@ select
 from uber_data_ex
 tablesample (1000 rows);
 
-select * from uber_data_ex_txt_2 ;
-select sum(locationID) from uber_data_ex_txt_2 ;
+select * from uber_data_ex_txt_2 where Affiliated_base_num = 'B02764' ;
+select sum(locationID) from uber_data_ex_txt_2 where Affiliated_base_num = 'B02764';
 
---тестим sequencefile
+--sequencefile
 drop table if exists uber_data_ex_sq_2;
 create table uber_data_ex_sq_2 (
     Dispatching_base_num string,
@@ -58,8 +58,8 @@ select
 from uber_data_ex
 tablesample (1000 rows);
 
-select * from uber_data_ex_sq_2;
-select sum(locationID) from uber_data_ex_sq_2 ;
+select * from uber_data_ex_sq_2 where Affiliated_base_num = 'B02764';
+select sum(locationID) from uber_data_ex_sq_2 where Affiliated_base_num = 'B02764' ;
 
 --parquet
 drop table if exists uber_data_ex_pq_2;
@@ -79,8 +79,8 @@ select
 from uber_data_ex
 tablesample (1000 rows);
 
-select * from uber_data_ex_pq_2 ;
-select sum(locationID) from uber_data_ex_pq_2 ;
+select * from uber_data_ex_pq_2 where Affiliated_base_num = 'B02764';
+select sum(locationID) from uber_data_ex_pq_2 where Affiliated_base_num = 'B02764';
 
 --orc
 drop table if exists uber_data_ex_orc_2;
@@ -100,8 +100,8 @@ select
 from uber_data_ex
 tablesample (1000 rows);
 
-select * from uber_data_ex_orc_2 ;
-select sum(locationID) from uber_data_ex_orc_2 ;
+select * from uber_data_ex_orc_2 where Affiliated_base_num = 'B02764';
+select sum(locationID) from uber_data_ex_orc_2 where Affiliated_base_num = 'B02764';
 
 --паркет на запись самый быстрый. разница до 10-15 раз.
 --чтение примерно одинаковое
