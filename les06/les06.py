@@ -38,7 +38,7 @@ def run_bash_cmd(cmd: str):
 # создаем папки даем на них права 777
 run_bash_cmd('hdfs dfs -mkdir les06 && hdfs dfs -chmod -R 777 les06 && hdfs dfs -mkdir t1 && hdfs dfs -chmod -R 777 t1')
 
-# используя скуп выгрузим данные
+# скуп
 q1 = '''
     sqoop import --connect jdbc:postgresql://10.0.0.7/lesson5 \
     --username exporter --password exporter_pass --table student41_48 \
