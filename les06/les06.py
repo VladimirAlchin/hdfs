@@ -41,7 +41,7 @@ run_bash_cmd('hdfs dfs -mkdir les06 && hdfs dfs -chmod -R 777 les06 && hdfs dfs 
 # скуп
 q1 = '''
     sqoop import --connect jdbc:postgresql://10.0.0.7/lesson5 \
-    --username exporter --password exporter_pass --table student41_48 \
+    --username exporter --password exporter_pass --table student41_45 \
     --hive-import --hive-overwrite \
     --hive-database student41_45 --hive-table les06 \
     -m 1 \
